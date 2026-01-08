@@ -1,0 +1,17 @@
+class algoforremoveingduplicates:
+    def remove_dublicate(self,nums):
+        if not nums:
+            return 0
+        left=0
+ 
+        for right in range(1,len(nums)):
+            if nums[left] !=nums[right]:
+                left+=1
+                nums[left]=nums[right]
+        return left + 1
+    
+if __name__ == "__main__":
+    solution = algoforremoveingduplicates()
+    nums=[1,2,3,3,3,4,4,5,6,77,77,8,8,98,76,54,]
+    unique_index=solution.remove_dublicate(nums)
+print("array after removing dublicates",nums[:unique_index])
