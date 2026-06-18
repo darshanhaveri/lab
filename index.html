@@ -1,137 +1,71 @@
-0, 0, 7],
-    [6, 8, 0, 0, 9],
-    [0, 5, 7, 9, 0]
-]
-n = len(graph)
-prim(graph, n)
-OUTPUT:
-Minimum Spanning Tree:
-0 - 1 : 2
-1 - 2 : 3
-1 - 4 : 5
-0 - 3 : 6
-10. Write a program to find Minimum cost spanning tree of a given undirected graph using 
-Kruskal’s algorithm. 
 
-def find(parent, i):
-    if parent[i] != i:
-        parent[i] = find(parent, parent[i])  
-    return parent[i]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Registration</title>
+</head>
+<body>
 
-def union(parent, u, v):
-    root_u = find(parent, u)
-    root_v = find(parent, v)
-    parent[root_u] = root_v  
+    <h2>College Admission Form</h2>
 
-def kruskal(n, graph):
-    edges = []
-    for i in range(n):
-        for j in range(i + 1, n):  
-            if graph[i][j] != 0:  
-                edges.append((graph[i][j], i, j))  
+    <form action="/submit_form" method="POST">
+        
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required autofocus maxlength="50">
+        <br><br>
 
-    edges.sort()
+        <fieldset>
+            <legend>Year of Study:</legend>
+            <input type="radio" id="freshman" name="studyYear" value="freshman" required>
+            <label for="freshman">Freshman</label><br>
+            
+            <input type="radio" id="sophomore" name="studyYear" value="sophomore">
+            <label for="sophomore">Sophomore</label><br>
+            
+            <input type="radio" id="junior" name="studyYear" value="junior">
+            <label for="junior">Junior</label><br>
+        </fieldset>
+        <br>
 
-    parent = [i for i in range(n)]  
-    mst = []  
-    min_cost = 0
+        <fieldset>
+            <legend>Extracurricular Interests:</legend>
+            <input type="checkbox" id="sports" name="interests" value="sports">
+            <label for="sports">Athletics</label><br>
+            
+            <input type="checkbox" id="arts" name="interests" value="arts">
+            <label for="arts">Fine Arts</label><br>
+            
+            <input type="checkbox" id="astronomy_club" name="interests" value="astronomy" checked>
+            <label for="astronomy_club">Astronomy Club</label><br>
+        </fieldset>
+        <br>
 
-    for weight, u, v in edges:
-        if find(parent, u) != find(parent, v):  
-            union(parent, u, v)  
-            mst.append((u, v, weight))
-            min_cost += weight
+        <label for="major">Select Major:</label>
+        <select id="major" name="major" required>
+            <option value="" disabled selected>Select your major...</option>
+            <option value="computer_science">Computer Science</option>
+            <option value="engineering">Engineering</option>
+            <option value="astrophysics">Astrophysics</option>
+            <option value="business">Business</option>
+        </select>
+        <br><br>
 
-        if len(mst) == n - 1:  
-            break
+        <label for="campus">Preferred Campus Building:</label>
+        <input list="buildings" id="campus" name="campus" placeholder="Type or select a building...">
+        <datalist id="buildings">
+            <option value="North Hall">
+            <option value="Science Center">
+            <option value="Main Library">
+            <option value="Observatory">
+        </datalist>
+        <br><br>
 
-    print("Edges in the constructed MST:")
-    for u, v, weight in mst:
-        print(f"{u} -- {v} == {weight}")
-    print(f"Minimum Spanning Tree Cost: {min_cost}")
+        <button type="submit">Submit Application</button>
+        <button type="reset">Clear Form</button>
 
+    </form>
 
-graph = [
-    [0, 10, 6, 5],
-    [10, 0, 0, 15],
-    [6, 0, 0, 4],
-    [5, 15, 4, 0]
-]
-
-n = len(graph)   
-kruskal(n, graph)  
-OUTPUT:
-Edges in the constructed MST:
-2 -- 3 == 4
-0 -- 3 == 5
-0 -- 1 == 10
-Minimum Spanning Tree Cost: 19
-11. From a given vertex in a weighted connected graph, find shortest paths to other vertices using Dijkstra's algorithm.
-def dijkstra(graph, src, n):
-    inf = 99999
-    dist = [inf] * n
-    dist[src] = 0
-    visited = [False] * n
-    for _ in range(n):
-        u = -1
-        for v in range(n):
-            if not visited[v] and (u == -1 or dist[v] < dist[u]):
-                u = v
-        visited[u] = True
-        for v in range(n):
-            if not visited[v] and graph[u][v] > 0 and dist[u] + graph[u][v] < dist[v]:
-                dist[v] = dist[u] + graph[u][v]
-    return dist
-
-graph = [
-    [0, 4, 1, 0],
-    [4, 0, 2, 5],
-    [1, 2, 0, 8],
-    [0, 5, 8, 0]
-]
-n=len(graph)
-src = 0
-dist = dijkstra(graph, src,n)
-
-print("Shortest distances from source vertex", src)
-for i in range(n):
-    print("Vertex", i, ":", dist[i])
-OUTPUT:
-Shortest distances from source vertex 0
-Vertex 0 : 0
-Vertex 1 : 3
-Vertex 2 : 1
-Vertex 3 : 8
-12. Implement N Queen's problem using Backtracking and prove its efficiency. 
-
-13. Find a subset of a given set S = {s1,s2,. ... ,sn} of n positive integers whose sum is equal to a given positive integer d. A suitable message is to be displayed if the given problem instance doesn't have a solution and prove its efficiency.
-
-14. Implement 0/1 Knapsack problem using Dynamic Programming.
-def knapSack(W, wt, pft, n):
-    if n == 0 or W == 0:
-        return 0
-    if (wt[n-1] > W):
-        return knapSack(W, wt, pft, n-1)
-    else:
-        return max(pft[n-1] + knapSack(W-wt[n-1], wt, pft, n-1),
-                   knapSack(W, wt, pft, n-1))
-if __name__ == '__main__':
-    profit = [60, 100, 120]
-    weight = [10, 20, 30]
-    W = 50
-    n = len(profit)
-    max_profit=knapSack(W, weight, profit, n)
-    print("The maximum profit is: ",max_profit)
-
-
-
-        </code></pre>
-    </div>
-
-    <!-- The Script that does the highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
 </body>
 </html>
-
-                Men are brave
