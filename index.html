@@ -1,71 +1,114 @@
 
+Here is the raw HTML version of the student registration form with all CSS completely removed. Basic line breaks (<br>) have been added to keep the fields separated vertically.
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Registration</title>
+    <title>Student Registration Form</title>
 </head>
 <body>
 
-    <h2>College Admission Form</h2>
-
-    <form action="/submit_form" method="POST">
+    <div>
+        <h2>Student Registration</h2>
         
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required autofocus maxlength="50">
-        <br><br>
+        <form action="#" method="POST" enctype="multipart/form-data">
+            
+            <div>
+                <label for="name">Student Name:</label><br>
+                <input type="text" id="name" name="name" placeholder="Enter full name" required>
+            </div>
+            <br>
 
-        <fieldset>
-            <legend>Year of Study:</legend>
-            <input type="radio" id="freshman" name="studyYear" value="freshman" required>
-            <label for="freshman">Freshman</label><br>
-            
-            <input type="radio" id="sophomore" name="studyYear" value="sophomore">
-            <label for="sophomore">Sophomore</label><br>
-            
-            <input type="radio" id="junior" name="studyYear" value="junior">
-            <label for="junior">Junior</label><br>
-        </fieldset>
+            <div>
+                <label for="regno">Registration Number:</label><br>
+                <input type="text" id="regno" name="regno" placeholder="Enter registration number" required>
+            </div>
+            <br>
+
+            <div>
+                <label for="email">Email Address:</label><br>
+                <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+            </div>
+            <br>
+
+            <div>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" placeholder="Create a password" required>
+            </div>
+            <br>
+
+            <div>
+                <label for="dob">Date of Birth:</label><br>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <br>
+
+            <div>
+                <label>Gender:</label><br>
+                <input type="radio" id="male" name="gender" value="Male" required>
+                <label for="male">Male</label>
+
+                <input type="radio" id="female" name="gender" value="Female">
+                <label for="female">Female</label>
+
+                <input type="radio" id="other" name="gender" value="Other">
+                <label for="other">Other</label>
+            </div>
+            <br>
+
+            <div>
+                <label for="course">Course:</label><br>
+                <select id="course" name="course" required>
+                    <option value="" disabled selected>Select your course</option>
+                    <option value="MCA">Master of Computer Applications (MCA)</option>
+                    <option value="BCA">Bachelor of Computer Applications (BCA)</option>
+                    <option value="BTech">B.Tech / B.E.</option>
+                    <option value="CyberSec">M.Sc Cybersecurity</option>
+                </select>
+            </div>
+            <br>
+
+            <div>
+                <label for="photo">Upload Student Photo:</label><br>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+            </div>
+            <br>
+
+            <div>
+                <label>Skills:</label><br>
+                <input type="checkbox" id="python" name="skills" value="Python">
+                <label for="python">Python</label>
+
+                <input type="checkbox" id="java" name="skills" value="Java">
+                <label for="java">Java</label>
+
+                <input type="checkbox" id="networking" name="skills" value="Networking">
+                <label for="networking">Networking</label>
+
+                <input type="checkbox" id="dbms" name="skills" value="DBMS">
+                <label for="dbms">DBMS</label>
+            </div>
+            <br>
+
+            <div>
+                <label for="address">Address:</label><br>
+                <textarea id="address" name="address" rows="4" cols="30" placeholder="Enter permanent address" required></textarea>
+            </div>
+            <br>
+
+            <div>
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </div>
+        </form>
         <br>
 
-        <fieldset>
-            <legend>Extracurricular Interests:</legend>
-            <input type="checkbox" id="sports" name="interests" value="sports">
-            <label for="sports">Athletics</label><br>
-            
-            <input type="checkbox" id="arts" name="interests" value="arts">
-            <label for="arts">Fine Arts</label><br>
-            
-            <input type="checkbox" id="astronomy_club" name="interests" value="astronomy" checked>
-            <label for="astronomy_club">Astronomy Club</label><br>
-        </fieldset>
-        <br>
-
-        <label for="major">Select Major:</label>
-        <select id="major" name="major" required>
-            <option value="" disabled selected>Select your major...</option>
-            <option value="computer_science">Computer Science</option>
-            <option value="engineering">Engineering</option>
-            <option value="astrophysics">Astrophysics</option>
-            <option value="business">Business</option>
-        </select>
-        <br><br>
-
-        <label for="campus">Preferred Campus Building:</label>
-        <input list="buildings" id="campus" name="campus" placeholder="Type or select a building...">
-        <datalist id="buildings">
-            <option value="North Hall">
-            <option value="Science Center">
-            <option value="Main Library">
-            <option value="Observatory">
-        </datalist>
-        <br><br>
-
-        <button type="submit">Submit Application</button>
-        <button type="reset">Clear Form</button>
-
-    </form>
+        <a href="https://www.example.edu" target="_blank">Visit College Website</a>
+    </div>
 
 </body>
 </html>
+
+```
