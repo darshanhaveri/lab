@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show/Hide Table with CSS</title>
+    <style>
+        /* Hide the checkbox itself */
+        #table-toggle {
+            display: none;
+        }
+
+        /* Style the label to look like a clickable button */
+        .toggle-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: sans-serif;
+            user-select: none;
+            margin-bottom: 15px;
+        }
+
+        /* Hide the table by default */
+        .mytable {
+            display: none;
+            border-collapse: collapse;
+            width: 100%;
+            font-family: sans-serif;
+        }
+
+        /* Change button text when the checkbox is checked */
+        #table-toggle:checked ~ .toggle-btn::after {
+            content: " Hide Table";
+        }
+        #table-toggle:not(:checked) ~ .toggle-btn::after {
+            content: " Show Table";
+        }
+
+        /* SHOW THE TABLE when the checkbox is checked */
+        #table-toggle:checked ~ .mytable {
+            display: table; /* Restores default table behavior */
+        }
+
+        /* Basic styling for the table cells */
+        .mytable th, .mytable td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .mytable th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The Hidden Checkbox -->
+    <input type="checkbox" id="table-toggle">
+
+    <!-- Button acting as the label for the checkbox -->
+    <label for="table-toggle" class="toggle-btn"></label>
+
+    <!-- The Table to Toggled -->
+    <table class="mytable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Alice</td>
+                <td>Developer</td>
+                <td>New York</td>
+            </tr>
+            <tr>
+                <td>Bob</td>
+                <td>Designer</td>
+                <td>London</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
