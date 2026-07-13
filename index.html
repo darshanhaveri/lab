@@ -2,115 +2,170 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Code Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 30px;
+        }
+        .form-container {
+            max-width: 500px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[readonly] {
+            background-color: #e9ecef;
+            font-weight: bold;
+            color: #495057;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
 
-    <div align="right">
-        <span>_</span> &nbsp;
-        <span>&#9633;</span> &nbsp;
-        <span>X</span>
-    </div>
+<div class="form-container">
+    <h2>Student Information & Report Card</h2>
+    <form id="studentForm">
+        <!-- Student Metadata -->
+        <div class="form-group">
+            <label for="rollNo">Roll Number:</label>
+            <input type="text" id="rollNo" required placeholder="Enter roll number">
+        </div>
+        <div class="form-group">
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" required placeholder="Enter full name">
+        </div>
 
-    <hr>
+        <!-- Subject Marks Inputs -->
+        <div class="form-group">
+            <label for="sub1">Subject 1 Marks (Out of 100):</label>
+            <input type="number" id="sub1" min="0" max="100" required placeholder="e.g. 85">
+        </div>
+        <div class="form-group">
+            <label for="sub2">Subject 2 Marks (Out of 100):</label>
+            <input type="number" id="sub2" min="0" max="100" required placeholder="e.g. 72">
+        </div>
+        <div class="form-group">
+            <label for="sub3">Subject 3 Marks (Out of 100):</label>
+            <input type="number" id="sub3" min="0" max="100" required placeholder="e.g. 90">
+        </div>
 
-    <h2><u>Code:-</u></h2>
+        <!-- Action Button -->
+        <button type="button" onclick="calculateReport()">Generate Report</button>
 
-    <fieldset>
-        <pre><code>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Show/Hide Table with CSS&lt;/title&gt;
-    &lt;style&gt;
-        /* Hide the checkbox itself */
-        #table-toggle {
-            display: none;
+        <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
+
+        <!-- Calculated Output Fields -->
+        <div class="form-group">
+            <label for="totalMarks">Total Marks:</label>
+            <input type="text" id="totalMarks" readonly>
+        </div>
+        <div class="form-group">
+            <label for="averageMarks">Average Percentage (%):</label>
+            <input type="text" id="averageMarks" readonly>
+        </div>
+        <div class="form-group">
+            <label for="resultStatus">Result:</label>
+            <input type="text" id="resultStatus" readonly>
+        </div>
+        <div class="form-group">
+            <label for="finalGrade">Grade:</label>
+            <input type="text" id="finalGrade" readonly>
+        </div>
+    </form>
+</div>
+
+<script>
+function calculateReport() {
+    // 1. Fetch input values and parse them safely into numbers
+    let s1 = parseFloat(document.getElementById("sub1").value);
+    let s2 = parseFloat(document.getElementById("sub2").value);
+    let s3 = parseFloat(document.getElementById("sub3").value);
+
+    // Form Validation: Ensure all inputs contain valid numbers between 0 and 100
+    if (isNaN(s1) || isNaN(s2) || isNaN(s3) || 
+        s1 < 0 || s1 > 100 || s2 < 0 || s2 > 100 || s3 < 0 || s3 > 100) {
+        alert("Please enter valid marks between 0 and 100 for all subjects.");
+        return;
+    }
+
+    // 2. Compute Total and Average metrics
+    let total = s1 + s2 + s3;
+    let average = total / 3;
+
+    // 3. Evaluate the structural constraints for Result and Grades
+    let result = "";
+    let grade = "";
+
+    // Condition 1: Check if the student failed any individual subject (Passing threshold: 40)
+    if (s1 < 40 || s2 < 40 || s3 < 40) {
+        result = "Fail";
+        grade = "F";
+    } else {
+        // Condition 2: Evaluate classification levels using conditional blocks based on overall average
+        result = "Pass";
+        
+        if (average >= 85) {
+            grade = "A+";
+        } else if (average >= 75) {
+            grade = "A";
+        } else if (average >= 60) {
+            grade = "B";
+        } else if (average >= 50) {
+            grade = "C";
+        } else {
+            grade = "D";
         }
+    }
 
-        /* Style the label to look like a clickable button */
-        .toggle-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            font-family: sans-serif;
-            user-select: none;
-            margin-bottom: 15px;
-        }
-
-        /* Hide the table by default */
-        .mytable {
-            display: none;
-            border-collapse: collapse;
-            width: 100%;
-            font-family: sans-serif;
-        }
-
-        /* Change button text when the checkbox is checked */
-        #table-toggle:checked ~ .toggle-btn::after {
-            content: " Hide Table";
-        }
-        #table-toggle:not(:checked) ~ .toggle-btn::after {
-            content: " Show Table";
-        }
-
-        /* SHOW THE TABLE when the checkbox is checked */
-        #table-toggle:checked ~ .mytable {
-            display: table; /* Restores default table behavior */
-        }
-
-        /* Basic styling for the table cells */
-        .mytable th, .mytable td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        .mytable th {
-            background-color: #f2f2f2;
-        }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-    &lt;!-- The Hidden Checkbox --&gt;
-    &lt;input type="checkbox" id="table-toggle"&gt;
-
-    &lt;!-- Button acting as the label for the checkbox --&gt;
-    &lt;label for="table-toggle" class="toggle-btn"&gt;&lt;/label&gt;
-
-    &lt;!-- The Table to Toggled --&gt;
-    &lt;table class="mytable"&gt;
-        &lt;thead&gt;
-            &lt;tr&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Role&lt;/th&gt;
-                &lt;th&gt;Location&lt;/th&gt;
-            &lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody&gt;
-            &lt;tr&gt;
-                &lt;td&gt;Alice&lt;/td&gt;
-                &lt;td&gt;Developer&lt;/td&gt;
-                &lt;td&gt;New York&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;Bob&lt;/td&gt;
-                &lt;td&gt;Designer&lt;/td&gt;
-                &lt;td&gt;London&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/tbody&gt;
-    &lt;/table&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-        </code></pre>
-    </fieldset>
+    // 4. Update UI read-only components dynamically
+    document.getElementById("totalMarks").value = total;
+    document.getElementById("averageMarks").value = average.toFixed(2) + "%";
+    document.getElementById("resultStatus").value = result;
+    document.getElementById("finalGrade").value = grade;
+}
+</script>
 
 </body>
-</html>
+                </html>
 
